@@ -3,6 +3,9 @@ import random
 
 pygame.init()
 
+pygame.mixer.init() #Ses ekleyebilmek için
+
+
 # Ekran Boyutları
 genislik = 800
 yukseklik = 600
@@ -45,6 +48,9 @@ pygame.display.set_caption("İlk Oyun Pencerem")
 
 font = pygame.font.SysFont("Arial", 32)
 
+# Ses dosyasını ekle
+toplama_sesi = pygame.mixer.Sound("toplama_sesi.wav")
+
 calisiyor = True
 while calisiyor:
     # Oyunun hızını sabitle (FPS)
@@ -76,6 +82,7 @@ while calisiyor:
         # Eğer çarptıysa:
         skor += 1
         print(f"Puan: {skor}") 
+        toplama_sesi.play()  # Yem alındığında pop sesi çal
 
         # Yemleri yeni rastgele bir yere ışınla
         yem_x = random.randint(0, genislik - yem_boyut)
