@@ -35,7 +35,7 @@ yem_y = random.randint(0, yukseklik - yem_boyut)
 # Kare (oyuncu) özellikleri
 kare_x = 400
 kare_y = 300
-kare_boyut = 100
+kare_boyut = 70
 hiz = 5 # Kare her tuşa basıldığında kaç piksel gidecek?
 
 # Saat Nesnesi 
@@ -83,6 +83,10 @@ while calisiyor:
         skor += 1
         print(f"Puan: {skor}") 
         toplama_sesi.play()  # Yem alındığında pop sesi çal
+
+        # yem yedikçe kruvasan büyüsün
+        kruvasan_boy += 5 
+        kruvasan_resmi = pygame.transform.scale(pygame.image.load("kruvasan.png").convert_alpha(), (kruvasan_boy, kruvasan_boy))
 
         # Yemleri yeni rastgele bir yere ışınla
         yem_x = random.randint(0, genislik - yem_boyut)
