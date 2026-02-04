@@ -32,6 +32,20 @@ yem_resmi = pygame.transform.scale(yem_resmi, (yem_boyut, yem_boyut))
 yem_x = random.randint(0, genislik - yem_boyut)
 yem_y = random.randint(0, yukseklik - yem_boyut)
 
+
+
+# Düşman ekleyelim
+dusman_resmi = pygame.image.load("kahve.png").convert_alpha()
+dusman_boyut = 60
+dusman_resmi = pygame.transform.scale(dusman_resmi, (dusman_boyut, dusman_boyut))
+
+# Düşmanların başlangıç konumu
+dusman_x = random.randint(0, genislik - dusman_boyut)
+dusman_y = -dusman_boyut  # Ekranın üstünden başlasın
+dusman_hiz = 4
+
+
+
 # Kare (oyuncu) özellikleri
 kare_x = 400
 kare_y = 300
@@ -84,15 +98,28 @@ while calisiyor:
         print(f"Puan: {skor}") 
         toplama_sesi.play()  # Yem alındığında pop sesi çal
 
-        # yem yedikçe kruvasan büyüsün
-        kruvasan_boy += 5 
-        kruvasan_resmi = pygame.transform.scale(pygame.image.load("kruvasan.png").convert_alpha(), (kruvasan_boy, kruvasan_boy))
-
         # Yemleri yeni rastgele bir yere ışınla
         yem_x = random.randint(0, genislik - yem_boyut)
         yem_y = random.randint(0, yukseklik - yem_boyut)
     
+    # Düşman yukarıdan aşağı doğru hareket etsin 
+    dusman_y += dusman_hiz
     
+    # En aşağı inince tekrar yukarı çıksın
+    if dusman_y > yukseklik:
+        dusman_y = -dusman_boyut
+        dusman_x = random.randint(0, genislik - dusman_boyut)
+    
+    # Düşmana çarparsa ne olacak?
+    if (kare_x < dusman_x + dusman_boyut and
+        kare_x + kruvasan_boy > dusman_x and
+        kare_y < dusman_y + dusman_boyut and
+        kare_y + kruvasan_boy > dusman_y):
+
+        print("HAHAH! YOU BURN!")
+        calisiyor = False # Oyunu kapatır.
+
+
     # Arka planı boya
     ekran.fill((241, 215, 198))
 
@@ -104,6 +131,9 @@ while calisiyor:
     # Skoru ekrana yazdır
     skor_yazisi = font.render(f"Puan: {skor}", True, (111, 78, 55)) # Kahverengi yazı
     ekran.blit(skor_yazisi, (20, 20))
+
+    # Düşmanı çiz
+    ekran.blit(dusman_resmi, (dusman_x,dusman_y))
 
     pygame.display.flip()
 
