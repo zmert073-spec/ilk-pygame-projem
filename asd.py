@@ -14,6 +14,11 @@ ekran = pygame.display.set_mode((genislik,yukseklik))
 # skor değişkeni
 skor = 0 
 
+# Yazı tipi ve boyutu
+font_buyuk = pygame.font.SysFont("Arial", 64)
+font_kucuk = pygame.font.SysFont("Arial", 32)
+
+
 # Kruvasan ekleme 
 kruvasan_resmi = pygame.image.load("kruvasan.png").convert_alpha() # .convert_alpha() eklemek şeffaf kısımları görünmez yapar.
 
@@ -116,21 +121,7 @@ while calisiyor:
         kare_y < dusman_y + dusman_boyut and
         kare_y + kruvasan_boy > dusman_y):
 
-        # Yazıyı hazırla
-        yanma_fontu = pygame.font.SysFont("Arial", 72, bold=True)
-        mesaj = yanma_fontu.render("HAHAH! YOU BURN!", True, (255, 0, 0)) #Kırmızı renk
-
-        # Yazıyı ekranın ortasına yerleştir
-        metin_dikdortgeni = mesaj.get_rect(center=(genislik // 2, yukseklik // 2)) 
-        ekran.blit(mesaj, metin_dikdortgeni)
-
-        # Ekranı son kez güncelle, yazı görünsün
-        pygame.display.flip()
-
-        # Oyunu kapatmadan önce 3 saniye beklet
-        pygame.time.delay(3000) # Bilgisayar çok hızlı çalıştığı için
-        # yazı görünmeden hemen kapanır.
-
+        print("HAHAH! YOU BURN!")
         calisiyor = False # Oyunu kapatır.
 
 
